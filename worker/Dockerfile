@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 RUN apt update --fix-missing
 RUN apt upgrade -y
-RUN apt install -y git python3 python3-distutils build-essential
+RUN apt install -y git python3 python3-distutils make g++
 
 WORKDIR /root
 COPY run_workers.sh .
