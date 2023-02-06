@@ -43,6 +43,8 @@ RUN ${VENV}/bin/python3 -m pip install -e .
 COPY nginx.fishtest.conf /etc/nginx/sites-available/fishtest.conf
 RUN ln -s /etc/nginx/sites-available/fishtest.conf /etc/nginx/sites-enabled/fishtest.conf
 
+COPY run_prod_services.sh .
+# Run these after starting
 # mongod --config /etc/mongod.conf
 # /app/fishtest/server/env/bin/pserve production.ini http_port=6543
 # nginx
