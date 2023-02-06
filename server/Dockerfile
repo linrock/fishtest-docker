@@ -41,7 +41,7 @@ COPY nginx.fishtest.conf /etc/nginx/sites-available/fishtest.conf
 RUN ln -s /etc/nginx/sites-available/fishtest.conf /etc/nginx/sites-enabled/fishtest.conf
 
 # mongod --config /etc/mongod.conf
-# /root/fishtest/server/env/bin/pserve production.ini http_port=65432
+# /root/fishtest/server/env/bin/pserve production.ini http_port=6543
 # nginx
 
 EXPOSE 65432
