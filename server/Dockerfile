@@ -24,7 +24,7 @@ RUN sed -i '/^  logAppend: true/a\  logRotate: reopen' /etc/mongod.conf
 WORKDIR /root
 RUN echo '' > fishtest.secret
 RUN echo '' > fishtest.captcha.secret
-RUN echo 'http://127.0.0.1/upload_net/' > fishtest.upload
+RUN echo 'http://127.0.0.1:65432/upload_net/' > fishtest.upload
 
 WORKDIR /app
 COPY setup.sh .
@@ -47,8 +47,10 @@ RUN pip3 install --upgrade pip setuptools wheel
 RUN pip3 install --upgrade fastapi uvicorn[standard] gunicorn python-multipart
 COPY net_server.py /app/net-server/net_server.py
 
+# nginx setup
 COPY nginx.fishtest.conf /etc/nginx/sites-available/fishtest.conf
 RUN ln -s /etc/nginx/sites-available/fishtest.conf /etc/nginx/sites-enabled/fishtest.conf
+RUN rm /etc/nginx/sites-enabled/default
 
 COPY run_prod_services.sh .
 
