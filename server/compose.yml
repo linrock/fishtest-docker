@@ -5,3 +5,5 @@ services:
       dockerfile: ./Dockerfile
     container_name: fishtest-server
     image: fishtest-server
+    ports:
+      - 65432:65432
