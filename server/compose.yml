@@ -1,0 +1,7 @@
+services:
+  fishtest-server:
+    restart: always
+    build:
+      dockerfile: ./Dockerfile
+    container_name: fishtest-server
+    image: fishtest-server
