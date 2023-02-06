@@ -37,16 +37,25 @@ ENV VENV=/app/fishtest/server/env
 RUN python3 -m venv ${VENV}
 RUN ${VENV}/bin/python3 -m pip install --upgrade pip setuptools wheel
 
+# api server setup
 WORKDIR /app/fishtest/server
 RUN ${VENV}/bin/python3 -m pip install -e .
+
+# net server setup
+RUN mkdir -p /app/net-server/nn
+RUN pip3 install --upgrade pip setuptools wheel
+RUN pip3 install --upgrade fastapi uvicorn[standard] gunicorn python-multipart
+COPY net_server.py /app/net-server/net_server.py
 
 COPY nginx.fishtest.conf /etc/nginx/sites-available/fishtest.conf
 RUN ln -s /etc/nginx/sites-available/fishtest.conf /etc/nginx/sites-enabled/fishtest.conf
 
 COPY run_prod_services.sh .
+
 # Run these after starting
 # mongod --config /etc/mongod.conf
 # /app/fishtest/server/env/bin/pserve production.ini http_port=6543
+# gunicorn net_server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker
 # nginx
 
 EXPOSE 65432
