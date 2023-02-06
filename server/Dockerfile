@@ -24,6 +24,7 @@ RUN sed -i '/^  logAppend: true/a\  logRotate: reopen' /etc/mongod.conf
 WORKDIR /root
 RUN echo '' > fishtest.secret
 RUN echo '' > fishtest.captcha.secret
+RUN echo 'http://127.0.0.1/upload_net/' > fishtest.upload
 
 WORKDIR /app
 COPY setup.sh .
