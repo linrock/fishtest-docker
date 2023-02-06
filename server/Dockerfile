@@ -37,7 +37,12 @@ RUN ${VENV}/bin/python3 -m pip install --upgrade pip setuptools wheel
 WORKDIR /root/fishtest/server
 RUN ${VENV}/bin/python3 -m pip install -e .
 
-# mongod --config /etc/mongod.conf
-# pserve production.ini http_port=6542
+COPY nginx.fishtest.conf /etc/nginx/sites-available/fishtest.conf
+RUN ln -s /etc/nginx/sites-available/fishtest.conf /etc/nginx/sites-enabled/fishtest.conf
 
+# mongod --config /etc/mongod.conf
+# /root/fishtest/server/env/bin/pserve production.ini http_port=65432
+# nginx
+
+EXPOSE 65432
 CMD sleep infinity
