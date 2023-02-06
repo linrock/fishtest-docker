@@ -22,26 +22,28 @@ RUN sed -i '/^## Enterprise-Only Options:/i\setParameter:\n  tcmallocAggressiveM
 RUN sed -i '/^  logAppend: true/a\  logRotate: reopen' /etc/mongod.conf
 
 WORKDIR /root
-COPY setup.sh .
-RUN git clone https://github.com/glinscott/fishtest fishtest
 RUN echo '' > fishtest.secret
 RUN echo '' > fishtest.captcha.secret
+
+WORKDIR /app
+COPY setup.sh .
+RUN git clone https://github.com/glinscott/fishtest fishtest
 
 RUN apt install -y python3-venv
 RUN pip3 install --upgrade pip setuptools wheel
 
-ENV VENV=/root/fishtest/server/env
+ENV VENV=/app/fishtest/server/env
 RUN python3 -m venv ${VENV}
 RUN ${VENV}/bin/python3 -m pip install --upgrade pip setuptools wheel
 
-WORKDIR /root/fishtest/server
+WORKDIR /app/fishtest/server
 RUN ${VENV}/bin/python3 -m pip install -e .
 
 COPY nginx.fishtest.conf /etc/nginx/sites-available/fishtest.conf
 RUN ln -s /etc/nginx/sites-available/fishtest.conf /etc/nginx/sites-enabled/fishtest.conf
 
 # mongod --config /etc/mongod.conf
-# /root/fishtest/server/env/bin/pserve production.ini http_port=6543
+# /app/fishtest/server/env/bin/pserve production.ini http_port=6543
 # nginx
 
 EXPOSE 65432
