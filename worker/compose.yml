@@ -1,0 +1,9 @@
+services:
+  ft-worker:
+    restart: always
+    build:
+      dockerfile: ./Dockerfile
+    container_name: ft-worker
+    image: ft-worker
+    environment:
+      - WORKER_CONFIG
