@@ -11,12 +11,12 @@ for worker in $(seq 1 $num_16core_workers); do
   cd ~
 done
 
-num_8core_workers=$(( ( $(nproc) - 1 - ( $num_16core_workers * 16 ) ) / 8 ))
+num_12core_workers=$(( ( $(nproc) - 1 - ( $num_16core_workers * 16 ) ) / 12 ))
 for worker in $(seq 1 $num_8core_workers); do
   worker_dir=~/8core-worker$worker
   cp -r fishtest $worker_dir
   cd $worker_dir/worker
-  python3 worker.py $WORKER_CONFIG --concurrency 8 &
+  python3 worker.py $WORKER_CONFIG --concurrency 12 &
   cd ~
 done
 
