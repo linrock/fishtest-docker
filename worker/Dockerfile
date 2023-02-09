@@ -1,8 +1,9 @@
 FROM ubuntu:22.04
 
+COPY apt-sources.list /etc/apt/sources.list
 RUN apt update --fix-missing
 RUN apt upgrade -y
-RUN apt install -y git python3 python3-distutils make g++
+RUN apt install -y git vim python3 python3-distutils make g++
 
 RUN useradd --create-home --shell /bin/bash worker
 
