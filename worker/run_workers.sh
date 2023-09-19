@@ -3,7 +3,7 @@
 git clone https://github.com/official-stockfish/fishtest ~/fishtest
 
 concurrency=16
-workers=$(( ($(nproc)) / $concurrency ))
+num_workers=$(( ($(nproc)) / $concurrency ))
 for worker in $(seq 1 $num_workers); do
   worker_dir=~/worker$worker
   cp -r fishtest $worker_dir
