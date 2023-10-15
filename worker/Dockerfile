@@ -1,9 +1,7 @@
-FROM ubuntu:23.04
+FROM ubuntu:23.10
 
-# COPY apt-sources.list /etc/apt/sources.list
-RUN apt-get update --fix-missing
-RUN apt upgrade -y
-RUN apt install -y git vim python3 python3-distutils make g++ #  clang llvm
+RUN apt update -y && apt upgrade -y && apt install -y \
+  git vim python3 python3-distutils make g++ # clang llvm
 
 RUN useradd --create-home --shell /bin/bash worker
 
