@@ -1,4 +1,4 @@
-### fishtest-docker
+## fishtest-docker
 
 Linux containers for running
 [fishtest](https://tests.stockfishchess.org/)
@@ -7,16 +7,15 @@ Linux containers for running
 [workers](https://github.com/official-stockfish/fishtest/wiki/Running-the-worker).
 
 
-#### workers
+### workers
 
-Example of starting workers on two servers. By default:
-- all available cpu cores are used
-- each worker uses 16 cores with cpu pinning
+Example of how to start fishtest workers on a few servers:
 
 ```bash
 SERVERS=(
   server1
   server2
+  server3
 )
 
 cd worker
@@ -27,12 +26,18 @@ for server in ${SERVERS[@]}; do
 done
 ```
 
+By default:
+
+- all available cpu cores are used
+- each worker uses 16 cores with cpu pinning
+- workers connect to the official fishtest server
+
 See `worker/run_workers.sh` for core configs and cpu pinning.
 
-See the list of [fishtest worker parameters](https://github.com/official-stockfish/fishtest/wiki/Running-the-worker#worker-parameters) for worker params other than username/password.
+See the list of [fishtest worker parameters](https://github.com/official-stockfish/fishtest/wiki/Running-the-worker#worker-parameters) for more worker params other than username/password.
 
 
-#### server
+### server
 
 Use `docker compose` to start a fishtest server. A few services
 need to be manually started. See `server/Dockerfile` for more info.
