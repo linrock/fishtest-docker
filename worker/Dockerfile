@@ -1,7 +1,10 @@
-FROM ubuntu:23.10
+FROM ubuntu:22.04
 
 RUN apt update -y && apt upgrade -y && apt install -y \
-  git vim python3 python3-distutils make g++ # clang llvm
+  git vim python3 python3-distutils make g++ \
+  curl wget
+
+# for clang builds, install: clang llvm
 
 RUN useradd --create-home --shell /bin/bash worker
 
